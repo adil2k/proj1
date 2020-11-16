@@ -11,27 +11,37 @@ namespace proj1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        PlayerContext db = new PlayerContext();
 
-        public HomeController(ILogger<HomeController> logger)
+        public ActionResult Index()
         {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
+            // получаем из бд все объекты Player
+            IEnumerable<Player> players = db.Players;
+            // передаем все объекты в динамическое свойство Players в ViewBag
+            ViewBag.Players = players;
+            // возвращаем представление
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public ActionResult Buy(int id)
         {
+            ViewBag.PlayerId = id;
             return View();
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public string Buy(Transfer transfer)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            transfer.Date = DateTime.Now;
+            // добавляем информацию о покупке в базу данных
+            db.Transfers.Add(transfer);
+            // сохраняем в бд все изменения
+            db.SaveChanges();
+            return "Спасибо," + transfer.TransferTeam+ ", за покупку!";
         }
+
     }
+
+
+
 }
