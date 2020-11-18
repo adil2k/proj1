@@ -6,14 +6,12 @@
     <div>
         <h3>Запрос на трансфер</h3>
         <form method="post" action="">
-            <input type="hidden" value="@ViewBag.BookId" name="BookId" />
-            <table>
-                <tr>
-                    <td><p>Название клуба </p></td>
-                    <td><input type="text" name="TransferTeam" /> </td>
-                </tr>
-                
-                <tr><td><input type="submit" value="Отправить" /> </td><td></td></tr>
-            </table>
+            <input type="hidden" value="@ViewBag.PlayerId" name="PlayerId" />
+            <p>Название клуба </p>
+            <input type="text" name="TransferTeam" />
+            <input type="submit" value="Отправить" />
+            
         </form>
+
+       
     </div>

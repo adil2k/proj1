@@ -1,0 +1,29 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace proj1.Util
+{
+    public class ImageResult : ActionResult
+    {
+        private string path;
+        public ImageResult(string path)
+        {
+            this.path = path;
+        }
+        public override void ExecuteResult(ControllerContext context)
+        {
+            context.HttpContext.Response.Write("<div style='width:100%;text-align:center;'>" +
+                "<img style='max-width:600px;' src='" + path + "' /></div>");
+        }
+
+        public ActionResult GetImage()
+        {
+            string path = "../Images/visualstudio.png";
+            return new ImageResult(path);
+        }
+    }
+
+}

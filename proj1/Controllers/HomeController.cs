@@ -32,12 +32,14 @@ namespace proj1.Controllers
         [HttpPost]
         public string Buy(Transfer transfer)
         {
-            transfer.Date = DateTime.Now;
-            // добавляем информацию о покупке в базу данных
+            transfer.Date = getToday();
             db.Transfers.Add(transfer);
-            // сохраняем в бд все изменения
             db.SaveChanges();
-            return "Спасибо," + transfer.TransferTeam+ ", за покупку!";
+            return "Спасибо, " + transfer.TransferTeam + ", за покупку!";
+        }
+        private DateTime getToday()
+        {
+            return DateTime.Now;
         }
 
     }
